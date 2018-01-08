@@ -22,7 +22,7 @@ class NoAuthController extends Controller
 
         if (!$user) {
             return response()->json([
-                'error' => "l'adresse email renseignée n'exite pas dans notre base de donnée"
+                'error' => "l'adresse email renseignée n'existe pas dans notre base de donnée"
             ], 401);
         }
 
