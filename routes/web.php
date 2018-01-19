@@ -12,5 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+Route::post('/contact', 'DefaultController@contact');
+
+Route::get('/adopte-un-eden', function () {
+    return view('adopt-eden');
+});
+Route::post('/adopte-un-eden', 'DefaultController@adoptEden');
