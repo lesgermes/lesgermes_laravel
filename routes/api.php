@@ -18,5 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:api')->post('/register-eden', 'Api\EdenController@registerEden');
+Route::middleware('auth:api')->get('/user-edens', 'Api\EdenController@getUserEdens');
+
 Route::post('/login', 'Api\NoAuthController@login');
 Route::post('/register', 'Api\NoAuthController@register');

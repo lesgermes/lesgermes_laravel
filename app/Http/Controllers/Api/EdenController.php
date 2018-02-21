@@ -68,4 +68,44 @@ class EdenController extends Controller
             'temperature' => 19
         ], 200);
     }
+
+    public function registerEden(Request $request) {
+        if (!($request->input("eden_id"))) {
+            return response()->json([
+                'error' => "Erreur formulaire"
+            ], 400);
+        }
+
+        $eden = Eden::where("eden_id", $request->input("eden_id"))->First();
+
+        if (!$eden) {
+            return response()->json([
+                'error' => "Cet eden n'est pas enregistré"
+            ], 401);
+        }
+
+        if ($eden->owner_id !== null) {
+            return response()->json([
+                'error' => "Cet eden appartient déjà à un utilisateur"
+            ], 402);
+        }
+
+        $eden->owner_id = $request->user()->id;
+        $eden->save();
+
+        return response()->json($eden, 200);
+    }
+
+    public function getUserEdens(Request $request) {
+        $user = $request->user();
+
+        $edens = Eden::where('owner_id', $user->id)->get();
+
+        foreach ($edens as $eden) {
+            $edenInfo = EdenInformation::where('eden', $eden->id)->orderBy('created_at', 'desc')->first();
+            $eden->info = $edenInfo;
+        }
+
+        return response()->json($edens, 200);
+    }
 }
