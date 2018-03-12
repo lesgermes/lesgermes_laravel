@@ -61,8 +61,8 @@ class EdenController extends Controller
 
         return response()->json([
             'light' => array(
-                'start' => new \DateTime(),
-                'end' => new \DateTime(),
+                'start' => \DateTime::createFromFormat('H:i:s', '08:00:00'),
+                'end' => \DateTime::createFromFormat('H:i:s', '21:00:00'),
                 'intensity' => 0.9
             ),
             'temperature' => 19
