@@ -27,4 +27,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function hasRightsToPerform($action) {
+        $userRoles = UsersRoles::Where("user_id", $this->id)->get();
+
+        foreach ($userRoles as $userRole) {
+            $roleActions = RolesActions::Where("role_id", $userRole->role_id)->get();
+
+            foreach ($roleActions as $roleAction) {
+                $dbAction = Actions::find($roleAction->action_id);
+
+                if ($dbAction == $action) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

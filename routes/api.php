@@ -23,3 +23,7 @@ Route::middleware('auth:api')->get('/user-edens', 'Api\EdenController@getUserEde
 
 Route::post('/login', 'Api\NoAuthController@login');
 Route::post('/register', 'Api\NoAuthController@register');
+
+
+// -------- wiki --------
+Route::middleware('auth:api')->post('/wiki/create-article', 'Api\Wiki\ArticlesController@createArticle');
