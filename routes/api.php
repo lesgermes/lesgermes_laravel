@@ -26,4 +26,6 @@ Route::post('/register', 'Api\NoAuthController@register');
 
 
 // -------- wiki --------
-Route::middleware('auth:api')->post('/wiki/create-article', 'Api\Wiki\ArticlesController@createArticle');
+Route::middleware('auth:api')->post('/wiki/article', 'Api\Wiki\ArticlesController@createArticle');
+Route::middleware('auth:api')->put('/wiki/article', 'Api\Wiki\ArticlesController@editArticle');
+Route::middleware('auth:api')->delete('/wiki/article', 'Api\Wiki\ArticlesController@deleteArticle');
